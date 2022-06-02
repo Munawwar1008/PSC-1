@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: inline-block;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar">
+        FT-web17 - 2
+        ft-web18 - 3
+    </div>
+    <div id="container"></div>
+</body>
+</html>
+
+<script>
+
+append()
+
+function append(){
+    console.log("yes");
+    let data = JSON.parse(localStorage.getItem('students')) || []
+    let container = document.getElementById("container")
+    container.innerHTML = null;
+
+    data.forEach(function(el, index){
+        let div = document.createElement('div');
+        let img = document.createElement('img');
+        img.src = el.image;
+        let p1 = document.createElement('p1')
+        p1.innerText = el.name
+        let p2 = document.createElement('p2')
+        p2.innerText = el.unit
+        let p3 = document.createElement('p3')
+        p3.innerText = el.batch
+        let p4 = document.createElement('p4')
+        p4.innerText = el.course
+        let btn = document.createElement('button')
+        btn.innerText = 'Remove';
+        btn.setAttribute('click', function() {remove(index)})
+    
+    div.append(img, p1, p2, p3, p4, btn)
+        container.append(div)
+    });
+
+}
+
+function remove(index){
+    let data = JSON.parse(localStorage.getItem('students')) || [];
+    let newdata = data.filter(function(el,i){
+        if(i== index){
+            let trash =JSON.parse(localStorage.getItem('trash')) || [];
+        trash.push(el);
+        localStorage.setItem('trash', JSON.stringify(trash))
+        }else{
+       
+        return i !== index;
+        }
+    })
+
+    localStorage.setItem('students', JSON.stringify(newdata))
+    append()
+}
+
+</script>

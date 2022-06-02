@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta image="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="navbar" style="margin-bottom:10px;">
+    FT-web17 - 2
+    FT-web18 - 3
+
+</div>
+    <button>
+   <a href="./dashboard.html">Dashboard</a>
+</button>
+<h1>Add Student Data</h1>
+<form id="student_data" onsubmit="storedata(event)">
+<input type="text" id="name" placeholder="Name">
+<input type="text" id="course" placeholder="Course">
+<input type="number" id="unit" placeholder="Unit">
+<input type="text" id="image" placeholder="Image">
+<input type="number" id="batch" placeholder="Batch">
+<input type="submit">
+</form>
+</body>
+</html>
+
+<script>
+function storedata(e){
+    e.preventDefault()
+    let form = document.getElementById("student_data")
+    let name = form.name.value;
+    let course = form.course.value;
+    let unit = form.unit.value;
+    let image = form.image.value;
+    let batch = form.batch.value;
+
+let s1 = new Student(name, course, unit, image, batch)
+
+let data = JSON.parse(localStorage.getItem('students')) || []
+
+data.push(s1)
+
+localStorage.setItem('students', JSON.stringify(data))
+
+    console.log(s1);
+
+}
+
+
+function Student(n,c,u,i,b){
+    this.name = n
+    this.course = c;
+    this.unit = u;
+    this.image = i;
+    this.batch = `FT-Web${b}`;
+
+}
+
+function calculate(){
+    let data = JSON.parse(localStorage.getItem('students')) || []
+let obj={}
+for(let i = 0; i<data.length;i++){
+    if(!obj[data[i].batch]) {
+        (obj[data[i].batch]=1);
+    }
+}   
+for(let i = 0; i<data.length;i++){
+    obj[data[i].batch]++
+    }
+console.log(obj);
+}
+
+calculate()
+
+
+
+
+</script>
